@@ -1,5 +1,6 @@
 public class FizzBuzzDetector {
 
+    /// It is String variable with that class works and overlap it
     private String InputString;
 
     /// Is variables for counting matches of Fizz, Bizz and FizzBuzz words
@@ -8,9 +9,11 @@ public class FizzBuzzDetector {
             FizzBuzzCounter     =    0;
 
     /*
+
     *   Constructor with one required parameter - "String" - which will use for overlapping
     *   WARNING: If String will be equals null - constructor will throw NullPointerException.
     *  This is implemented in order to protect the programmer
+    *
     */
     public FizzBuzzDetector(String InputString) {
         if (InputString == null) {
