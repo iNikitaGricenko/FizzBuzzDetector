@@ -22,8 +22,10 @@ public class FizzBuzzDetectorTest {
     public static Collection<String[]> data() {
         String[][] data = new String[][] {
                 {
+                    /* Actual string value */
                     "Mary had a little lamb Little lamb, little lamb " +
             "Mary had a little lamb It's fleece was white as snow",
+                    /* Expected string result */
                         "Mary had Fizz little Buzz Fizz lamb, little Fizz Buzz had Fizz little lamb " +
                 "FizzBuzz fleece was Fizz as Buzz " +
                 "\nNumbers of FizzBuzz: 1" +
@@ -32,8 +34,10 @@ public class FizzBuzzDetectorTest {
                 "\nTotal number of coincidence: 9"
                 },
                 {
+                    /* Actual string value */
                     "00110001 01001110 01010101 01010101 01011000 " +
                 "00010100 00101111 01010010 01100011 01100011 00101011",
+                    /* Expected string result */
                         "00110001 01001110 Fizz 01010101 Buzz Fizz 00101111 01010010 Fizz Buzz 00101011 " +
                 "\nNumbers of FizzBuzz: 0"+
                 "\nNumbers of Fizz: 3"+
@@ -41,8 +45,10 @@ public class FizzBuzzDetectorTest {
                 "\nTotal number of coincidence: 5"
                 },
                 {
+                    /* Actual string value */
                     "Contrary to popular belief, Lorem Ipsum is not simply " +
                 "random text. It has roots in a piece of",
+                    /* Expected string result */
                         "Contrary to Fizz belief, Buzz Fizz is not Fizz Buzz text. Fizz has roots FizzBuzz a piece Fizz "+
                 "\nNumbers of FizzBuzz: 1" +
                 "\nNumbers of Fizz: 5" +
@@ -50,13 +56,17 @@ public class FizzBuzzDetectorTest {
                 "\nTotal number of coincidence: 8"
                 },
                 {
+                    /* Actual string value */
                     null,
+                    /* Expected string result */
                         "Size of string is smaller/bigger than recommended." +
                     " Recommends to use string with length bigger than 7 symbols and lower than 100." +
                     " If you still want to use your string, try unsafe method getUnsafeOverlapping"
                 },
                 {
+                    /* Actual string value */
                     "",
+                    /* Expected string result */
                         "Size of string is smaller/bigger than recommended." +
                     " Recommends to use string with length bigger than 7 symbols and lower than 100." +
                     " If you still want to use your string, try unsafe method getUnsafeOverlapping"
