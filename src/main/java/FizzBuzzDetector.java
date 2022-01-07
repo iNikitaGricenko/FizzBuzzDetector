@@ -7,8 +7,8 @@ public class FizzBuzzDetector {
 
     private final String originalString;
     private final int capacity;
-    private String overlappedString;
     private int fizzCounter, buzzCounter, fizzBuzzCounter;
+    private String overlappedString;
 
     public String getOriginalString() {
         return originalString;
@@ -41,6 +41,7 @@ public class FizzBuzzDetector {
                     " Recommends to use string with length bigger than 7 symbols and lower than 100");
         }
 
+        overlappedString = "";
         String[] stringSequence = originalString.split(" ");
         char[] charSequence = new char[0];
 
@@ -63,7 +64,6 @@ public class FizzBuzzDetector {
             }
         }
 
-        this.overlappedString = "";
         for (String element:stringSequence) {
             this.overlappedString += element;
         }
@@ -77,7 +77,7 @@ public class FizzBuzzDetector {
         char[] cloneCharSequence = charSequence;
 
         for (int i = 0; i < charSequence.length ; i++) {
-            cloneCharSequence = resizeSequenceTo(charSequence, wordSequence.length);
+            cloneCharSequence = resizeSequence(charSequence, wordSequence.length);
             charSequence = cloneCharSequence;
 
             if (charSequence[i] > 0x2F || cloneCharSequence[i] == 0x00) {
@@ -90,15 +90,15 @@ public class FizzBuzzDetector {
         return cloneCharSequence;
     }
 
-    private char[] resizeSequenceTo(char[] charSequence, int iterator) {
+    private char[] resizeSequence(char[] charSequence, int size) {
 
-        char[] clone = new char[iterator];
+        char[] clone = new char[size];
 
-        if (iterator >= charSequence.length) {
-            iterator = charSequence.length;
+        if (size >= charSequence.length) {
+            size = charSequence.length;
         }
 
-        for (int j = 0; j < iterator; j++) {
+        for (int j = 0; j < size; j++) {
             clone[j] = charSequence[j];
         }
 
