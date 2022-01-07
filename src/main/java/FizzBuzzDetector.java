@@ -10,6 +10,29 @@ public class FizzBuzzDetector {
     private String overlappedString;
     private int fizzCounter, buzzCounter, fizzBuzzCounter;
 
+    public String getOriginalString() {
+        return originalString;
+    }
+
+    public String getOverlappedString() {
+        return overlappedString;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getFizzCounter() {
+        return fizzCounter;
+    }
+
+    public int getBuzzCounter() {
+        return buzzCounter;
+    }
+
+    public int getFizzBuzzCounter() {
+        return fizzBuzzCounter;
+    }
 
     public String overlap() {
 
@@ -46,30 +69,6 @@ public class FizzBuzzDetector {
         }
 
         return getOverlappedString();
-    }
-
-    public String getOriginalString() {
-        return originalString;
-    }
-
-    public String getOverlappedString() {
-        return overlappedString;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public int getFizzCounter() {
-        return fizzCounter;
-    }
-
-    public int getBuzzCounter() {
-        return buzzCounter;
-    }
-
-    public int getFizzBuzzCounter() {
-        return fizzBuzzCounter;
     }
 
     private char[] replaceWord(char[] charSequence, String word) {
