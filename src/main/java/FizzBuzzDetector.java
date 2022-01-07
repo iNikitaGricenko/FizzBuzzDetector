@@ -10,29 +10,17 @@ public class FizzBuzzDetector {
     private int fizzCounter, buzzCounter, fizzBuzzCounter;
     private String overlappedString;
 
-    public String getOriginalString() {
-        return originalString;
-    }
+    public String getOriginalString() { return originalString; }
 
-    public String getOverlappedString() {
-        return overlappedString;
-    }
+    public String getOverlappedString() { return overlappedString; }
 
-    public int getCapacity() {
-        return capacity;
-    }
+    public int getCapacity() { return capacity; }
 
-    public int getFizzCounter() {
-        return fizzCounter;
-    }
+    public int getFizzCounter() { return fizzCounter; }
 
-    public int getBuzzCounter() {
-        return buzzCounter;
-    }
+    public int getBuzzCounter() { return buzzCounter; }
 
-    public int getFizzBuzzCounter() {
-        return fizzBuzzCounter;
-    }
+    public int getFizzBuzzCounter() { return fizzBuzzCounter; }
 
     public String overlap() {
 
