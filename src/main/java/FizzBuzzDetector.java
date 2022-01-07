@@ -1,116 +1,109 @@
 public class FizzBuzzDetector {
 
-    /// It is String variable with that class works and overlap it
-    private String overlapString;
-
-    /// Is variables for counting matches of fizz, bizz and fizzBuzz words
-    private int fizzCounter     =    0,
-            buzzCounter         =    0,
-            fizzBuzzCounter     =    0;
-
-    /*
-    *
-    *   Constructor with one required parameter - "String" - which will use for overlapping
-    *   If String will be equals null - constructor will insert empty value.
-    *  This is implemented in order to protect the programmer
-    *
-    */
     public FizzBuzzDetector(String inputString) {
-        this.overlapString = inputString != null ? inputString : "";
+        this.originalString = inputString;
+        this.capacity = originalString.length();
     }
 
-    /*
-    *
-    * This is safe method which checking if string length have required size,
-    * if yes - string will be overlapping in 'overlap()' method, else will be return message
-    *  which says what string is does not fit the condition
-    *
-    */
-    public String getOverlappings() {
-        if (overlapString.length() < 7 || overlapString.length() > 100) {
-            return "Size of string is smaller/bigger than recommended." +
-                    " Recommends to use string with length bigger than 7 symbols and lower than 100." +
-                    " If you still want to use your string, try unsafe method getUnsafeOverlapping";
+    private final String originalString;
+    private final int capacity;
+    private String overlappedString;
+    private int fizzCounter, buzzCounter, fizzBuzzCounter;
+
+
+    public String overlap() {
+
+        if (capacity < 7 || capacity > 100) {
+            throw new IllegalArgumentException("Size of string is smaller/bigger than recommended." +
+                    " Recommends to use string with length bigger than 7 symbols and lower than 100");
         }
-        overlapString = overlap(overlapString);
-        return overlapString +
-                "\nNumbers of FizzBuzz: " + fizzBuzzCounter +
-                "\nNumbers of Fizz: " + fizzCounter +
-                "\nNumbers of Buzz: " + buzzCounter +
-                "\nTotal number of coincidence: " + (fizzBuzzCounter + fizzCounter + buzzCounter);
-    }
 
-    /*
-    *
-    * This is unsafe method which checking if string length isn`t empty,
-    * if yes - string will be overlapping in 'overlap()' method, else will return empty value
-    *
-    */
-    public String getUnsafeOverlappings() {
-        if (overlapString.length() == 0) {
-            return "";
-        }
-        overlapString = overlap(overlapString);
-        return overlapString +
-                "\nNumbers of FizzBuzz: " + fizzBuzzCounter +
-                "\nNumbers of Fizz: " + fizzCounter +
-                "\nNumbers of Buzz: " + buzzCounter +
-                "\nTotal number of coincidence: " + (fizzBuzzCounter + fizzCounter + buzzCounter);
-    }
+        String[] stringSequence = originalString.split(" ");
+        char[] charSequence = new char[0];
 
-    /*
-    *
-    *   This overlapping realization method, with required String parameter, which will be overlapping,
-    *  by splitting to array of words, and in loop will check every third and fifth words, and replacing to
-    *  words such as Fizz (every third), Buzz(every fifth), or both - FizzBuzz, when word fits both conditions.
-    *   After that all array will be merged to single string and return string.
-    *
-    */
-    private String overlap(String input) {
-        String[] array = input.split(" ");
-        input = "";
-        for (int i = 0; i < array.length ; i++) {
-            String fizz = "Fizz"; // string which will replace a default string value to Fizz
-            String buzz = "Buzz"; // string which will replace a default string value to Buzz
+        for (int i = 0; i < stringSequence.length; i++) {
+            charSequence = stringSequence[i].toCharArray();
+
             if (i % 3 == 2 && i % 5 == 4) {
-                buzz += check(array[i]); // adding a symbol into end of string
-                array[i] = fizz+buzz;
-                fizzBuzzCounter++;
+                this.fizzBuzzCounter++;
+                stringSequence[i] = String.valueOf(replaceWord(charSequence, "FizzBuzz"));
             } else if (i % 3 == 2 ) {
-                fizz += check(array[i]); // adding a symbol into end of string
-                array[i] = fizz;
-                fizzCounter++;
+                this.fizzCounter++;
+                stringSequence[i] = String.valueOf(replaceWord(charSequence, "Fizz"));
             } else if (i % 5 == 4 ) {
-                buzz += check(array[i]); // adding a symbol into end of string
-                array[i] = buzz;
-                buzzCounter++;
+                this.buzzCounter++;
+                stringSequence[i] = String.valueOf(replaceWord(charSequence, "Buzz"));
             }
-            input += array[i] + " ";
+
+            if (i+1 != stringSequence.length) {
+                stringSequence[i] += " ";
+            }
         }
-        return input;
+
+        this.overlappedString = "";
+        for (String element:stringSequence) {
+            this.overlappedString += element;
+        }
+
+        return getOverlappedString();
     }
 
-    /*
-    *
-    *   This method with one required string parameter - which will check for the contains of symbols.
-    *   If check is true, then method return a containing symbol, else returns empty string
-    *
-    */
-    private String check(String string) {
-        String[] symbols = {
-                ".",",","!","#","$",
-                "%","&","(",")","*",
-                "+",",","-",".",":",
-                ";","<=",">","?","@",
-                "[","\\","]","^","_",
-                "`","{","|","}","~"
-        };
-        for (int i = 0; i < symbols.length ; i++) {
-            if (string.contains(symbols[i])) {
-                return symbols[i];
+    public String getOriginalString() {
+        return originalString;
+    }
+
+    public String getOverlappedString() {
+        return overlappedString;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getFizzCounter() {
+        return fizzCounter;
+    }
+
+    public int getBuzzCounter() {
+        return buzzCounter;
+    }
+
+    public int getFizzBuzzCounter() {
+        return fizzBuzzCounter;
+    }
+
+    private char[] replaceWord(char[] charSequence, String word) {
+
+        char[] wordSequence = word.toCharArray();
+        char[] cloneCharSequence = charSequence;
+
+        for (int i = 0; i < charSequence.length ; i++) {
+            cloneCharSequence = resizeSequenceTo(charSequence, wordSequence.length);
+            charSequence = cloneCharSequence;
+
+            if (charSequence[i] > 0x2F || cloneCharSequence[i] == 0x00) {
+                cloneCharSequence[i] = wordSequence[i];
+            } else {
+                cloneCharSequence[i] = charSequence[i];
             }
         }
-        return "";
+
+        return cloneCharSequence;
+    }
+
+    private char[] resizeSequenceTo(char[] charSequence, int iterator) {
+
+        char[] clone = new char[iterator];
+
+        if (iterator >= charSequence.length) {
+            iterator = charSequence.length;
+        }
+
+        for (int j = 0; j < iterator; j++) {
+            clone[j] = charSequence[j];
+        }
+
+        return clone;
     }
 
 }

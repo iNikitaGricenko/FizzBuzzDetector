@@ -1,99 +1,65 @@
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.Collection;
+import static org.junit.Assert.*;
 
-@RunWith(value = Parameterized.class)
 public class FizzBuzzDetectorTest {
 
-    private String actualString, expectedString;
+    private FizzBuzzDetector fizzBuzzDetector;
+    private final String initialString = "Mary had a little lamb Little lamb, little lamb Mary had a little " +
+            "lamb It's fleece was white as snow";
+    private final String overlappedString = "Mary had Fizz little Buzz Fizz lamb, little Fizz Buzz had Fizz little " +
+            "lamb Fi'zBuzz fleece was Fizz as Buzz";
 
-    public FizzBuzzDetectorTest(String actualString, String expectedString)
-    {
-        this.actualString = actualString;
-        this.expectedString = expectedString;
+    private final int capacity = 100;
+    private final int fizzCounter = 5,
+            buzzCounter = 3,
+            fizzBuzzCounter = 1;
+
+    @Before
+    public void setUp() throws Exception {
+        fizzBuzzDetector = new FizzBuzzDetector(initialString);
+        fizzBuzzDetector.overlap();
     }
 
-    @Parameterized.Parameters
-    public static Collection<String[]> data() {
-        String[][] data = new String[][] {
-                {
-                    /* Actual string value */
-                    "Mary had a little lamb Little lamb, little lamb " +
-            "Mary had a little lamb It's fleece was white as snow",
-                    /* Expected string result */
-                        "Mary had Fizz little Buzz Fizz lamb, little Fizz Buzz had Fizz little lamb " +
-                "FizzBuzz fleece was Fizz as Buzz " +
-                "\nNumbers of FizzBuzz: 1" +
-                "\nNumbers of Fizz: 5" +
-                "\nNumbers of Buzz: 3" +
-                "\nTotal number of coincidence: 9"
-                },
-                {
-                    /* Actual string value */
-                    "00110001 01001110 01010101 01010101 01011000 " +
-                "00010100 00101111 01010010 01100011 01100011 00101011",
-                    /* Expected string result */
-                        "00110001 01001110 Fizz 01010101 Buzz Fizz 00101111 01010010 Fizz Buzz 00101011 " +
-                "\nNumbers of FizzBuzz: 0"+
-                "\nNumbers of Fizz: 3"+
-                "\nNumbers of Buzz: 2"+
-                "\nTotal number of coincidence: 5"
-                },
-                {
-                    /* Actual string value */
-                    "Contrary to popular belief, Lorem Ipsum is not simply " +
-                "random text. It has roots in a piece of",
-                    /* Expected string result */
-                        "Contrary to Fizz belief, Buzz Fizz is not Fizz Buzz text. Fizz has roots FizzBuzz a piece Fizz "+
-                "\nNumbers of FizzBuzz: 1" +
-                "\nNumbers of Fizz: 5" +
-                "\nNumbers of Buzz: 2" +
-                "\nTotal number of coincidence: 8"
-                },
-                {
-                    /* Actual string value */
-                    null,
-                    /* Expected string result */
-                        "Size of string is smaller/bigger than recommended." +
-                    " Recommends to use string with length bigger than 7 symbols and lower than 100." +
-                    " If you still want to use your string, try unsafe method getUnsafeOverlapping"
-                },
-                {
-                    /* Actual string value */
-                    "",
-                    /* Expected string result */
-                        "Size of string is smaller/bigger than recommended." +
-                    " Recommends to use string with length bigger than 7 symbols and lower than 100." +
-                    " If you still want to use your string, try unsafe method getUnsafeOverlapping"
-                }
-        };
-        return Arrays.asList(data);
-    }
-
-    /*  Test-1: Calling getOverlappings method */
     @Test
-    public void getOverlappings() {
-        FizzBuzzDetector expected = new FizzBuzzDetector(actualString);
-        Assertions.assertEquals(expectedString, expected.getOverlappings());
+    public void overlap() {
+        assertEquals(overlappedString, fizzBuzzDetector.overlap());
     }
 
-
-    /*  Test-2: Checking for null with getOverlappings */
     @Test
-    public void NULL_VALUE() {
-        FizzBuzzDetector expected = new FizzBuzzDetector(expectedString);
-        Assertions.assertNotNull(expected.getOverlappings());
+    public void getOriginalString() {
+        assertSame(initialString,fizzBuzzDetector.getOriginalString());
+        assertNotSame(overlappedString,fizzBuzzDetector.getOverlappedString());
     }
 
-    /*  Test-3: Checking for null with getUnsafeOverlappings */
     @Test
-    public void Unsafe_Method_NULL_VALUE() {
-        FizzBuzzDetector expected = new FizzBuzzDetector(expectedString);
-        Assertions.assertNotNull(expected.getUnsafeOverlappings());
+    public void getOverlappedString() {
+        assertEquals(overlappedString,fizzBuzzDetector.getOverlappedString());
+        assertNotSame(initialString,fizzBuzzDetector.getOverlappedString());
+    }
+
+    @Test
+    public void getCapacity() {
+        assertEquals(capacity,fizzBuzzDetector.getCapacity());
+        assertNotEquals(0,fizzBuzzDetector.getCapacity());
+    }
+
+    @Test
+    public void getFizzCounter() {
+        assertEquals(fizzCounter,fizzBuzzDetector.getFizzCounter());
+        assertNotEquals(0,fizzBuzzDetector.getFizzCounter());
+    }
+
+    @Test
+    public void getBuzzCounter() {
+        assertEquals(buzzCounter,fizzBuzzDetector.getBuzzCounter());
+        assertNotEquals(0,fizzBuzzDetector.getBuzzCounter());
+    }
+
+    @Test
+    public void getFizzBuzzCounter() {
+        assertEquals(fizzBuzzCounter,fizzBuzzDetector.getFizzBuzzCounter());
+        assertNotEquals(0,fizzBuzzDetector.getFizzBuzzCounter());
     }
 }
